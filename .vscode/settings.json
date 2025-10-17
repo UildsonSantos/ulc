@@ -1,0 +1,13 @@
+{
+    "files.watcherExclude": {
+        "**/node_modules": true
+    },
+    "java.import.exclusions": [
+    
+        "**/node_modules/**",
+        "**/.metadata/**",
+        "**/archetype-resources/**",
+        "**/META-INF/maven/**"
+    ],
+    "java.configuration.updateBuildConfiguration": "interactive"
+}
