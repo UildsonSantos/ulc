@@ -4,27 +4,35 @@
  */
 
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { useColorScheme, StatusBar } from 'react-native';
+import { ThemeProvider } from 'styled-components/native';
 
-function App(): React.JSX.Element {
+import { lightTheme, darkTheme } from './src/theme';
+
+import Home from './src/screens/HomeScreen.native';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+
+const App = () => {
+  // Detecta o tema do dispositivo ('light', 'dark' ou null)
+  const deviceTheme = useColorScheme();
+
+  const theme = deviceTheme === 'dark' ? darkTheme : lightTheme;
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>ULC</Text>
-    </View>
+    <SafeAreaProvider>
+      <ThemeProvider theme={theme}>
+        <SafeAreaView
+          style={{ flex: 1, backgroundColor: theme.colors.background }}
+        >
+          <StatusBar
+            barStyle={deviceTheme === 'dark' ? 'light-content' : 'dark-content'}
+            backgroundColor={theme.colors.background}
+          />
+          <Home />
+        </SafeAreaView>
+      </ThemeProvider>
+    </SafeAreaProvider>
   );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  text: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-});
+};
 
 export default App;
