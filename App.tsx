@@ -3,9 +3,10 @@
  * @format
  */
 
-import React from 'react';
+import React, { useEffect } from 'react'; // 1. Adicionado useEffect
 import { useColorScheme, StatusBar } from 'react-native';
 import { ThemeProvider } from 'styled-components/native';
+import BootSplash from 'react-native-bootsplash'; // 2. Import da lib
 
 import { lightTheme, darkTheme } from './src/theme';
 
@@ -17,6 +18,20 @@ const App = () => {
   const deviceTheme = useColorScheme();
 
   const theme = deviceTheme === 'dark' ? darkTheme : lightTheme;
+
+  // 3. Lógica para esconder a Splash Screen
+  useEffect(() => {
+    const init = async () => {
+      // Aqui você colocará carregamentos futuros (ex: carregar fontes, checar login, etc)
+      // Por enquanto, não precisamos esperar nada.
+    };
+
+    init().finally(async () => {
+      // Oculta a splash com uma animação suave de fade
+      await BootSplash.hide({ fade: true });
+      console.log("Bootsplash ocultado com sucesso");
+    });
+  }, []);
 
   return (
     <SafeAreaProvider>
